@@ -1,0 +1,15 @@
+export enum TypesEnum {
+  CELESTIAL = 'celestial',
+  ABERRATION = 'aberration',
+  UNDEAD = 'undead',
+  FEY = 'fey',
+  MONSTROSITY = 'monstrosity',
+  HUMANOID = 'humanoid',
+  DRAGON = 'dragon',
+  ELEMENTAL = 'elemental',
+  FIEND = 'fiend',
+  BEAST = 'beast',
+  OOZE = 'ooze',
+  CONSTRUCT = 'construct',
+  PLANT = 'plant',
+}
