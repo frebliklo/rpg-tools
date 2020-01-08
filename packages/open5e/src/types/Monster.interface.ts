@@ -3,7 +3,7 @@ import { SubtypesEnum } from './SubtypesEnum'
 import { GroupsEnum } from './GroupsEnum'
 import { AlignmentsEnum } from './AlignmentsEnum'
 
-export interface IMonster {
+export interface Monster {
   slug: string
   name: string
   size: string

@@ -2,7 +2,7 @@ import { Open5eMonster } from '@rpg-tools/open5e'
 import bodyParser from 'body-parser'
 import express from 'express'
 
-const main = async () => {
+const main = async (): Promise<void> => {
   const app = express()
 
   app.use(bodyParser.urlencoded({ extended: true }))
