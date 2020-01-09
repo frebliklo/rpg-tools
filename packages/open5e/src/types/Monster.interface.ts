@@ -38,8 +38,10 @@ export interface Monster {
   languages: string
   challenge_rating: string
   actions: Action[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   reactions: any
   legendary_desc: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   legendary_actions: any
   special_abilities: SpecialAbility[]
   spell_list: string[]

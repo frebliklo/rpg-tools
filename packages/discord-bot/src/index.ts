@@ -1,26 +1,39 @@
 import { Open5eMonster } from '@rpg-tools/open5e'
 import Discord from 'discord.js'
 
+const prefix = process.env.PREFIX || '!'
+
 const client = new Discord.Client()
 
 client.once('ready', () => {
   console.log('Ready!')
+
+  client.user.setPresence({
+    status: 'online',
+    game: {
+      type: 'WATCHING',
+      name: 'Adventure Time',
+    },
+  })
 })
 
 client.login(process.env.DISCORD_TOKEN)
 
-client.on('message', async msg => {
-  console.log(msg.content)
+client.on('message', async message => {
+  console.log(message.content)
+  if (!message.content.startsWith(prefix) || message.author.bot) return
 
-  if (msg.content === '!ping') {
-    msg.channel.send('Pong!!!')
-  }
+  const args = message.content.slice(prefix.length).split(' ')
 
-  if (msg.content === '!wolf') {
-    const o5e = new Open5eMonster()
+  if (!args || args.length < 1) return
 
-    const wolfData = await o5e.getMonsterBySlug('wolf')
+  const command = args.shift()?.toLowerCase()
 
-    msg.channel.send(`I've found a ${wolfData.name} that has ${wolfData.hit_points} hit points`)
+  if (command === 'monsterlist') {
+    const monsterApi = new Open5eMonster()
+
+    const list = await monsterApi.getMonstersByName(args[0])
+
+    message.channel.send(`I found ${list.length} monsters!`)
   }
 })
