@@ -14,13 +14,13 @@ client.login(token)
 client.on('message', async msg => {
   console.log(msg.content)
 
-  if(msg.content === '!ping') {
+  if (msg.content === '!ping') {
     msg.channel.send('Pong!!!')
   }
 
-  if(msg.content === '!wolf') {
+  if (msg.content === '!wolf') {
     const o5e = new Open5eMonster()
-    
+
     const wolfData = await o5e.getMonsterBySlug('wolf')
 
     msg.channel.send(`I've found a ${wolfData.name} that has ${wolfData.hit_points} hit points`)

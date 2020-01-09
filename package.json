@@ -9,6 +9,12 @@
     "lint:fix": "lerna run lint:fix"
   },
   "devDependencies": {
+    "husky": "^4.0.3",
     "lerna": "^3.20.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint"
+    }
   }
 }
