@@ -1,15 +1,13 @@
 import { Open5eMonster } from '@rpg-tools/open5e'
 import Discord from 'discord.js'
 
-import { token } from './config.json'
-
 const client = new Discord.Client()
 
 client.once('ready', () => {
   console.log('Ready!')
 })
 
-client.login(token)
+client.login(process.env.DISCORD_TOKEN)
 
 client.on('message', async msg => {
   console.log(msg.content)
