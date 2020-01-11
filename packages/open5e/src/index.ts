@@ -6,16 +6,32 @@ import { Monster } from './types/Monster.interface'
 
 type MonsterResponse = ApiResponse<Monster>
 
+type MonsterByNameResponse = {
+  count: number
+  url: string
+  monsters: Monster[]
+}
+
 export class Open5eMonster {
   private baseUrl: string = MONSTERS_BASE_URL
 
-  async getMonstersByName(name: string): Promise<Monster[]> {
-    const { data }: AxiosResponse<MonsterResponse> = await Axios.get(
-      `${this.baseUrl}?search=${name}`,
-    )
+  async getMonstersByName(name: string, take = 10): Promise<MonsterByNameResponse> {
+    const url = `${this.baseUrl}?search=${name}`
+
+    const { data }: AxiosResponse<MonsterResponse> = await Axios.get(url)
+
+    const monsters: Monster[] = []
+
+    for (let i = 0; i < take - 1; i++) {
+      monsters.push(data.results[i])
+    }
 
     try {
-      return data.results
+      return {
+        count: data.count,
+        url,
+        monsters,
+      }
     } catch (error) {
       return error
     }

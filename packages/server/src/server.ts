@@ -10,7 +10,7 @@ const main = async (): Promise<void> => {
   app.get('/', async (req, res) => {
     const open5eMonster = new Open5eMonster()
 
-    const wolves = await open5eMonster.getMonstersByName('wolf')
+    const { monsters: wolves } = await open5eMonster.getMonstersByName('wolf')
 
     const monsters = wolves.map(wolf => {
       return {

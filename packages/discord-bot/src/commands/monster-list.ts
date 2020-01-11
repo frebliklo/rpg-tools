@@ -4,16 +4,16 @@ import Discord from 'discord.js'
 export async function monsterList(message: Discord.Message, args: string[]): Promise<void> {
   const monsterApi = new Open5eMonster()
 
-  const list = await monsterApi.getMonstersByName(args[0])
+  const { count, monsters } = await monsterApi.getMonstersByName(args[0], 5)
 
-  if (list.length < 1) message.channel.send(`Couldn't find any monster based on '${args[0]}'`)
+  if (count < 1) message.channel.send(`Couldn't find any monster based on '${args[0]}'`)
 
   const embed = new Discord.RichEmbed().setTitle('Monsters')
 
-  list.forEach(item => {
-    embed.addField('Name', item.name, true)
-    embed.addField('Slug', item.slug, true)
-    embed.addField('Challenge rating', item.challenge_rating, true)
+  monsters.forEach(monster => {
+    embed.addField('Name', monster.name, true)
+    embed.addField('Slug', monster.slug, true)
+    embed.addField('Challenge rating', monster.challenge_rating, true)
   })
 
   message.channel.send(embed)
