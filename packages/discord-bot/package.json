@@ -27,6 +27,7 @@
     "typescript": "^3.7.4"
   },
   "dependencies": {
+    "@discordjs/uws": "^10.149.0",
     "@rpg-tools/open5e": "1.0.0",
     "discord.js": "^11.5.1"
   }
