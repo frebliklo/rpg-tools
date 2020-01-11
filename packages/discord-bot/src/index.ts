@@ -1,5 +1,6 @@
-import { Open5eMonster } from '@rpg-tools/open5e'
 import Discord from 'discord.js'
+
+import { monsterList } from './commands/monster-list'
 
 const prefix = process.env.PREFIX || '!'
 
@@ -29,11 +30,5 @@ client.on('message', async message => {
 
   const command = args.shift()?.toLowerCase()
 
-  if (command === 'monsterlist') {
-    const monsterApi = new Open5eMonster()
-
-    const list = await monsterApi.getMonstersByName(args[0])
-
-    message.channel.send(`I found ${list.length} monsters!`)
-  }
+  if (command === 'monsterlist') await monsterList(message, args)
 })

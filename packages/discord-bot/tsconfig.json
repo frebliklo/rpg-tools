@@ -22,7 +22,10 @@
     "baseUrl": ".",
     "rootDir": "src",
     "outDir": "dist",
-    "declaration": true
+    "declaration": true,
+    "paths": {
+      "*": ["./src/types/*"]
+    }
   },
   "exclude": ["node_modules"],
   "include": ["./src/**/*.tsx", "./src/**/*.ts"]

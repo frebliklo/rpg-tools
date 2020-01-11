@@ -29,6 +29,7 @@
   "dependencies": {
     "@discordjs/uws": "^10.149.0",
     "@rpg-tools/open5e": "1.0.0",
+    "ascii-table": "^0.0.9",
     "discord.js": "^11.5.1"
   }
 }
