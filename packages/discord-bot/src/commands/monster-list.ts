@@ -1,5 +1,4 @@
 import { Open5eMonster } from '@rpg-tools/open5e'
-import AsciiTable from 'ascii-table'
 import Discord from 'discord.js'
 
 export async function monsterList(message: Discord.Message, args: string[]): Promise<void> {
@@ -7,14 +6,15 @@ export async function monsterList(message: Discord.Message, args: string[]): Pro
 
   const list = await monsterApi.getMonstersByName(args[0])
 
-  const table = new AsciiTable()
+  if (list.length < 1) message.channel.send(`Couldn't find any monster based on '${args[0]}'`)
 
-  table.setHeading('Name', 'Slug')
+  const embed = new Discord.RichEmbed().setTitle('Monsters')
 
   list.forEach(item => {
-    table.addRow(item.name, item.slug)
+    embed.addField('Name', item.name, true)
+    embed.addField('Slug', item.slug, true)
+    embed.addField('Challenge rating', item.challenge_rating, true)
   })
 
-  message.channel.send(`I found ${list.length} monsters!`)
-  message.channel.send(table.toString())
+  message.channel.send(embed)
 }

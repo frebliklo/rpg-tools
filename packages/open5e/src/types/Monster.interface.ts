@@ -52,6 +52,7 @@ export interface Monster {
 }
 
 type Speed = {
+  [key: string]: number | boolean | undefined
   walk: number
   swim?: number
   hover?: boolean
@@ -61,6 +62,7 @@ type Speed = {
 }
 
 type Skills = {
+  [key: string]: number | undefined
   athletics: number
   intimidation: number
   history?: number

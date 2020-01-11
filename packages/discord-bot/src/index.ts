@@ -1,6 +1,8 @@
 import Discord from 'discord.js'
 
+import { monster } from './commands/monster'
 import { monsterList } from './commands/monster-list'
+import { CommandsEnum } from './types/CommandsEnum'
 
 const prefix = process.env.PREFIX || '!'
 
@@ -30,5 +32,6 @@ client.on('message', async message => {
 
   const command = args.shift()?.toLowerCase()
 
-  if (command === 'monsterlist') await monsterList(message, args)
+  if (command === CommandsEnum.MONSTER) await monster(message, args)
+  if (command === CommandsEnum.MONSTER_LIST) await monsterList(message, args)
 })

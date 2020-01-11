@@ -14,12 +14,20 @@ export class Open5eMonster {
       `${this.baseUrl}?search=${name}`,
     )
 
-    return data.results
+    try {
+      return data.results
+    } catch (error) {
+      return error
+    }
   }
 
   async getMonsterBySlug(slug: string): Promise<Monster> {
     const { data }: AxiosResponse<Monster> = await Axios.get(this.baseUrl + slug)
 
-    return data
+    try {
+      return data
+    } catch (error) {
+      return error
+    }
   }
 }
