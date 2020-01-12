@@ -15,15 +15,19 @@ type MonsterByNameResponse = {
 export class Open5eMonster {
   private baseUrl: string = MONSTERS_BASE_URL
 
-  async getMonstersByName(name: string, take = 10): Promise<MonsterByNameResponse> {
+  async getMonstersByName(name: string, take = 10, skip = 0): Promise<MonsterByNameResponse> {
     const url = `${this.baseUrl}?search=${name}`
 
     const { data }: AxiosResponse<MonsterResponse> = await Axios.get(url)
 
     const monsters: Monster[] = []
 
-    for (let i = 0; i < take - 1; i++) {
-      monsters.push(data.results[i])
+    if (data.results.length > 0) {
+      for (let i = skip; i < take + skip; i++) {
+        if (i < data.results.length) {
+          monsters.push(data.results[i])
+        }
+      }
     }
 
     try {
