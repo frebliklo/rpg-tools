@@ -2,6 +2,8 @@ import { Open5eMonster } from '@rpg-tools/open5e'
 import { Monster } from '@rpg-tools/open5e/dist/types/Monster.interface'
 import Discord from 'discord.js'
 
+import { createMonsterEmbed } from './monster'
+
 function createListEmbed(monsters: Monster[], title: string): Discord.RichEmbed {
   const embed = new Discord.RichEmbed().setTitle(title)
 
@@ -24,13 +26,21 @@ export async function monsterList(message: Discord.Message, args: string[]): Pro
     return
   }
 
+  const monsterNames = monsters.map(monster => monster.name)
+  const monsterSlugs = monsters.map(monster => monster.slug)
+
   const embed = createListEmbed(monsters, 'Monsters')
 
   message.channel.send(`Found ${count} monsters`)
   message.channel.send(embed)
 
   const filter = (response: Discord.Message): boolean => {
-    return response.content.includes('next') || response.content.includes('skip')
+    return (
+      response.content.includes('next') ||
+      response.content.includes('skip') ||
+      monsterNames.includes(response.content) ||
+      monsterSlugs.includes(response.content)
+    )
   }
   const collector = message.channel.createMessageCollector(filter, { time: 15000 })
 
@@ -39,10 +49,22 @@ export async function monsterList(message: Discord.Message, args: string[]): Pro
       skip = skip + 5
     }
 
-    if (response.content === 'skip') {
-      const resArgs = message.content.split(' ')
+    if (response.content.includes('skip')) {
+      const resArgs = response.content.split(' ')
 
       skip = parseInt(resArgs[1])
+    }
+
+    if (monsterNames.includes(response.content) || monsterSlugs.includes(response.content)) {
+      const [monsterByName] = monsters.filter(
+        monster => monster.name === response.content || monster.slug === response.content,
+      )
+
+      const resMonsterByNAme = await monsterApi.getMonsterBySlug(monsterByName.slug)
+
+      message.channel.send(createMonsterEmbed(resMonsterByNAme))
+      collector.stop()
+      return
     }
 
     const { monsters: resMonsters } = await monsterApi.getMonstersByName(args[0], 5, skip)
