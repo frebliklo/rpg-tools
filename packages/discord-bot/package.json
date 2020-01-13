@@ -6,12 +6,19 @@
   "license": "MIT",
   "scripts": {
     "start": "node dist/index.js",
-    "serve": "env-cmd node dist/index.js",
-    "dev": "env-cmd nodemon --exec ts-node -- ./src/index.ts",
-    "build": "tsc",
+    "serve": "env-cmd -f ./.env.dev env-cmd node dist/index.js",
+    "dev": "env-cmd -f ./.env.dev nodemon --exec ts-node -- ./src/index.ts",
+    "build": "rimraf dist && tsc",
     "build:watch": "tsc --watch",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix"
+  },
+  "dependencies": {
+    "@discordjs/uws": "^10.149.0",
+    "@rpg-tools/common": "^1.0.0",
+    "@rpg-tools/open5e": "1.0.0",
+    "ascii-table": "^0.0.9",
+    "discord.js": "^11.5.1"
   },
   "devDependencies": {
     "@types/node": "^13.1.4",
@@ -23,14 +30,11 @@
     "eslint-plugin-prettier": "^3.1.2",
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
+    "rimraf": "^3.0.0",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.4"
   },
-  "dependencies": {
-    "@discordjs/uws": "^10.149.0",
-    "@rpg-tools/common": "^1.0.0",
-    "@rpg-tools/open5e": "1.0.0",
-    "ascii-table": "^0.0.9",
-    "discord.js": "^11.5.1"
+  "engines": {
+    "yarn": "1.21.1"
   }
 }

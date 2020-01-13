@@ -5,6 +5,7 @@
   ],
   "scripts": {
     "build": "lerna run build",
+    "build:bot": "lerna run build --scope={@rpg-tools/common,@rpg-tools/discord-bot,@rpg-tools/open5e}",
     "lint": "lerna run lint",
     "lint:fix": "lerna run lint:fix"
   },
