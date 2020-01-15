@@ -1,11 +1,21 @@
 {
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "native/**",
+      "**/react-native",
+      "**/react-native/**",
+      "**/react-native-*"
+    ]
+  },
   "scripts": {
+    "bootsrap": "lerna run bootstrap",
     "build": "lerna run build",
     "build:bot": "lerna run build --scope={@rpg-tools/common,@rpg-tools/discord-bot,@rpg-tools/open5e}",
+    "clean": "lerna run clean",
     "lint": "lerna run lint",
     "lint:fix": "lerna run lint:fix",
     "test": "lerna run test"

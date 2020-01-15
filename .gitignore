@@ -1,3 +1,4 @@
 node_modules
 dist
 deploy_bot.sh
+yarn-error.log
